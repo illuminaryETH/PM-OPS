@@ -13,26 +13,31 @@ git clone https://github.com/illuminaryETH/PM-OPS.git
 cd PM-OPS
 ```
 
-1. **Fill in your context** — Edit the four files in `assumptions/` with your company, market, competitive, and resource info. This is the shared context every workflow reads.
+Open Claude Code in the project directory and run:
 
-2. **Create an intake** — Copy a template from `templates/` into the matching workflow's `intake/` folder:
-   ```
-   cp templates/idea-validation-intake.md workflows/idea-validation/intake/my-idea.md
-   ```
+```
+/start
+```
 
-3. **Fill in the intake** — Open the copied file and fill in the sections.
+Claude will walk you through:
+1. **Setting up context** — Fill in your company, market, competitive, and resource info through conversation
+2. **Picking a workflow** — Idea validation, monetization modeling, or data analysis
+3. **Building the intake** — Describe what you need; Claude asks follow-ups and generates the intake doc
+4. **Getting output** — Results land in a timestamped folder under `workflows/<workflow>/runs/`
 
-4. **Run the workflow** — Open Claude Code in the project directory and run:
-   ```
-   /idea-validation
-   ```
+**Already set up?** Jump directly to a workflow:
+```
+/idea-validation
+/monetization
+/data-analysis
+```
 
-5. **Get your output** — Results land in a timestamped folder:
-   ```
-   workflows/idea-validation/runs/2026-02-24-my-idea/
-   ```
+All three support conversational intake — no manual file editing needed.
 
 ## Workflows
+
+### `/start`
+Guided setup and workflow runner. Walks you through filling assumptions, choosing a workflow, and running it — all conversationally. Best entry point for first-time use.
 
 ### `/idea-validation`
 Evaluate a business or product idea. Produces a market analysis, competitive scan, risk assessment, and a GO / NO-GO / CONDITIONAL GO recommendation.

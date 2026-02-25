@@ -14,16 +14,29 @@ Read ALL files in `assumptions/`:
 
 Understanding the company, customer, and strategy makes the analysis relevant — not just technically correct.
 
-### Step 2: Load Intake
+### Step 2: Load or Build Intake
 
-Find the most recently modified `.md` file in `workflows/data-analysis/intake/`. Read it in full.
+Check for `.md` files in `workflows/data-analysis/intake/`.
 
-Pay close attention to:
-- The specific question to answer
-- The decision this informs
-- Data sources and file paths
-- Hypotheses
-- Scope boundaries
+**If an intake file exists:** Use the most recently modified `.md` file. Read it in full. Pay close attention to: the specific question to answer, the decision this informs, data sources and file paths, hypotheses, and scope boundaries. Proceed to Step 3.
+
+**If no intake file exists:** Build one from conversation. Use `$ARGUMENTS` as the starting description. Then:
+
+1. Parse whatever the user provided. Extract as much as you can into the intake fields below.
+2. Ask the user targeted follow-up questions to fill critical gaps. Group questions into a single message. Prioritize these fields:
+   - **Question to answer**: What is the specific question this analysis should answer? (One clear question.)
+   - **Why this matters**: What decision depends on this? Who needs the answer? Any deadline?
+   - **Data sources**: Where is the data? (File paths, formats — CSV, JSON, etc.) This is critical — the analysis can't run without data.
+   - **Hypotheses**: What 1-3 hypotheses should be tested?
+   - **Scope**: What's in scope vs. out of scope? Any specific segmentation needed?
+3. If the user's answers are sufficient, generate the intake doc. If still unclear (especially about data sources), ask one more round of follow-ups (maximum two rounds total).
+4. Write the completed intake file to `workflows/data-analysis/intake/<slug>.md` using the intake template structure from `templates/data-analysis-intake.md`.
+5. Proceed to Step 3.
+
+**Intake generation guidelines:**
+- Fill every field you have information for. Leave fields blank (with a `<!-- Not provided -->` comment) if the user didn't cover them — do not fabricate.
+- Use the user's language where possible. Tighten phrasing but don't change meaning.
+- Data source file paths are essential. If the user hasn't specified them, ask explicitly — do not skip this.
 
 ### Step 3: Load Data
 

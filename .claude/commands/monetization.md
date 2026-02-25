@@ -14,11 +14,31 @@ Read ALL files in `assumptions/`:
 
 Pay particular attention to business model, current revenue, competitive pricing, and market size.
 
-### Step 2: Load Intake
+### Step 2: Load or Build Intake
 
-Find the most recently modified `.md` file in `workflows/monetization/intake/`. Read it in full.
+Check for `.md` files in `workflows/monetization/intake/`.
 
-If the intake references prior run outputs, read those too.
+**If an intake file exists:** Use the most recently modified `.md` file. Read it in full. If it references prior run outputs (file paths), read those too. Proceed to Step 3.
+
+**If no intake file exists:** Build one from conversation. Use `$ARGUMENTS` as the starting description. Then:
+
+1. Parse whatever the user provided. Extract as much as you can into the intake fields below.
+2. Ask the user targeted follow-up questions to fill critical gaps. Group questions into a single message. Prioritize these fields:
+   - **Initiative**: What product/feature is being priced or monetized? (3-5 sentences)
+   - **Pricing questions**: What 1-3 specific pricing questions should the model answer?
+   - **Current pricing** (if applicable): model, price points, conversion rate, churn, ARPU
+   - **Proposed pricing**: model, price points/tiers, expected conversion, expected churn
+   - **Cost inputs**: variable cost per user, fixed costs, CAC
+   - **Growth assumptions**: current user count, expected growth rate, channels
+   - **Time horizon**: how far out should projections go?
+3. If the user's answers are sufficient, generate the intake doc. If still unclear, ask one more round of follow-ups (maximum two rounds total).
+4. Write the completed intake file to `workflows/monetization/intake/<slug>.md` using the intake template structure from `templates/monetization-intake.md`.
+5. Proceed to Step 3.
+
+**Intake generation guidelines:**
+- Fill every field you have information for. Leave fields blank (with a `<!-- Not provided -->` comment) if the user didn't cover them — do not fabricate.
+- Use the user's language where possible. Tighten phrasing but don't change meaning.
+- For numerical fields the user didn't provide, leave them blank — the gap check in Step 3 will handle defaults and flagging.
 
 ### Step 3: Gap Check
 
