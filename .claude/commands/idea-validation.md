@@ -14,11 +14,29 @@ Read ALL files in `assumptions/`:
 
 These are the PM's source of truth. If any are empty or missing critical sections, note this in your output.
 
-### Step 2: Load Intake
+### Step 2: Load or Build Intake
 
-Find the most recently modified `.md` file in `workflows/idea-validation/intake/`. Read it in full.
+Check for `.md` files in `workflows/idea-validation/intake/`.
 
-If the intake references prior run outputs (file paths), read those too.
+**If an intake file exists:** Use the most recently modified `.md` file. Read it in full. If it references prior run outputs (file paths), read those too. Proceed to Step 3.
+
+**If no intake file exists:** Build one from conversation. Use `$ARGUMENTS` as the starting description of the idea. Then:
+
+1. Parse whatever the user provided — it may be a single sentence or a detailed pitch. Extract as much as you can into the intake fields below.
+2. Ask the user targeted follow-up questions to fill critical gaps. Focus on what's needed for a useful analysis. Group questions into a single message — do not ask one at a time. Prioritize these fields:
+   - **Problem statement**: What problem does this solve? Who has it? How painful is it?
+   - **Target user**: Role, context, current workaround.
+   - **Proposed solution**: What would we build? (3-5 sentences on the capability, not the UI.)
+   - **Hypotheses**: What must be true for this to succeed? (2-3 key assumptions.)
+   - **Success criteria**: Primary metric, target, timeframe.
+3. If the user's answers are sufficient, generate the intake doc. If still unclear, ask one more round of follow-ups (maximum two rounds total — do not over-interrogate).
+4. Write the completed intake file to `workflows/idea-validation/intake/<slug>.md` using the intake template structure from `templates/idea-validation-intake.md`.
+5. Proceed to Step 3.
+
+**Intake generation guidelines:**
+- Fill every field you have information for. Leave fields blank (with a `<!-- Not provided -->` comment) if the user didn't cover them — do not fabricate.
+- Use the user's language where possible. Tighten phrasing but don't change meaning.
+- If the user provided known risks or constraints, include them. If not, leave those sections for the analysis to surface.
 
 ### Step 3: Gap Check
 

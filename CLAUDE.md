@@ -26,13 +26,15 @@ PM-OPS/
 ## How to Use
 
 1. Fill out (or update) the context files in `assumptions/`.
-2. Copy the relevant template from `templates/` into the workflow's `intake/` folder.
-3. Fill in the intake document with your specifics.
-4. Run the slash command:
+2. Run the slash command:
    - `/idea-validation` — runs idea validation workflow
    - `/monetization` — runs monetization modeling workflow
    - `/data-analysis` — runs data analysis workflow
    - `/pm-status` — summarizes recent activity across all workflows
+
+**Quick start (conversational intake):** Just run `/idea-validation` and describe your idea. Claude will ask follow-up questions and generate the intake doc for you.
+
+**Manual intake:** Copy the relevant template from `templates/` into the workflow's `intake/` folder, fill it in, then run the slash command. Claude will pick up the existing intake file automatically.
 
 ## Output Locations
 
